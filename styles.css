@@ -1,0 +1,405 @@
+/* ════════════════════════════════════════════════════════════════════
+   Таисия Галицкая — психолог. Тёплая, спокойная, «литературная» подача.
+   Дизайн-направление: editorial calm. Палитра — бумага и глина.
+   ════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Палитра */
+  --paper:      #f5efe6;   /* тёплый кремовый фон */
+  --paper-alt:  #ece2d4;   /* секции через одну, чуть глубже */
+  --card:       #fbf7f0;   /* карточки, светлее фона */
+  --ink:        #2c2823;   /* тёплый почти-чёрный, основной текст */
+  --ink-soft:   #5d544a;   /* приглушённый текст */
+  --ink-faint:  #8a8076;   /* подписи, hint */
+  --clay:       #b5764e;   /* терракота — главный акцент */
+  --clay-deep:  #9a5d37;   /* тёмная терракота — hover */
+  --line:       #ddd0bd;   /* тонкие границы */
+  --line-soft:  #e6dccd;
+
+  /* Типографика */
+  --serif: "Lora", Georgia, "Times New Roman", serif;
+  --sans:  "Manrope", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+
+  /* Ритм */
+  --wrap: 1140px;
+  --narrow: 760px;
+  --space: clamp(4.5rem, 9vw, 8rem);   /* вертикальные отступы секций */
+  --radius: 4px;
+}
+
+/* ── База ──────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: clamp(1rem, 0.55vw + 0.9rem, 1.075rem);
+  line-height: 1.72;
+  letter-spacing: 0.005em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+
+  /* Очень мягкая зернистость для «бумажной» атмосферы */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--clay-deep); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+::selection { background: var(--clay); color: var(--paper); }
+
+.wrap { width: min(100% - 2.5rem, var(--wrap)); margin-inline: auto; }
+.narrow { max-width: var(--narrow); }
+.center { text-align: center; }
+
+.skip-link {
+  position: absolute; left: -9999px; top: 0;
+  background: var(--ink); color: var(--paper); padding: .6rem 1rem; z-index: 100;
+}
+.skip-link:focus { left: 1rem; top: 1rem; border-radius: var(--radius); }
+
+:focus-visible { outline: 2px solid var(--clay); outline-offset: 3px; border-radius: 2px; }
+
+/* ── Типографика заголовков ────────────────────────────────────────── */
+h1, h2, h3 { font-family: var(--serif); font-weight: 400; color: var(--ink); }
+
+.section-title {
+  font-size: clamp(1.85rem, 3.4vw, 2.7rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin: 0 0 1.8rem;
+}
+.section-title.center { text-align: center; }
+
+.eyebrow {
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--clay-deep);
+  margin: 0 0 1.4rem;
+}
+
+/* ── Кнопки ────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-block;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 0.97rem;
+  letter-spacing: 0.01em;
+  padding: 0.85rem 1.7rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color .25s ease, color .25s ease,
+              border-color .25s ease, transform .25s ease;
+}
+.btn:hover { text-decoration: none; transform: translateY(-2px); }
+
+.btn-solid { background: var(--clay); color: var(--paper); }
+.btn-solid:hover { background: var(--clay-deep); }
+
+.btn-line { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn-line:hover { border-color: var(--clay); color: var(--clay-deep); }
+
+.btn-quiet { background: transparent; color: var(--ink); padding: 0.55rem 1.1rem; }
+.btn-quiet:hover { color: var(--clay-deep); }
+
+.btn-wide { width: 100%; text-align: center; padding-block: 1rem; }
+
+/* ── Шапка ─────────────────────────────────────────────────────────── */
+.site-header {
+  position: sticky; top: 0; z-index: 50;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line-soft);
+}
+.header-inner {
+  display: flex; align-items: center; gap: 1.5rem;
+  min-height: 74px;
+}
+.brand { display: flex; align-items: center; gap: 0.7rem; color: var(--ink); }
+.brand:hover { text-decoration: none; }
+.brand-mark {
+  display: grid; place-items: center;
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--clay); color: var(--paper);
+  font-family: var(--serif); font-size: 0.95rem; letter-spacing: 0.04em;
+}
+.brand-name { font-family: var(--serif); font-size: 1.12rem; }
+
+.nav { display: flex; gap: 1.6rem; margin-inline: auto; }
+.nav a {
+  color: var(--ink-soft); font-size: 0.94rem; letter-spacing: 0.01em;
+  position: relative; padding-block: 0.3rem;
+}
+.nav a::after {
+  content: ""; position: absolute; left: 0; bottom: 0; height: 1px; width: 0;
+  background: var(--clay); transition: width .28s ease;
+}
+.nav a:hover { color: var(--ink); text-decoration: none; }
+.nav a:hover::after { width: 100%; }
+
+.header-cta { flex-shrink: 0; }
+
+/* Бургер */
+.nav-toggle {
+  display: none; flex-direction: column; gap: 5px;
+  width: 42px; height: 42px; padding: 10px; margin-left: auto;
+  background: none; border: 1px solid var(--line); border-radius: var(--radius);
+}
+.nav-toggle span { height: 1.5px; background: var(--ink); transition: .25s; }
+.nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+.mobile-nav {
+  display: none; flex-direction: column;
+  padding: 0.5rem 1.25rem 1.25rem;
+  border-bottom: 1px solid var(--line-soft);
+}
+.mobile-nav a { padding: 0.8rem 0; color: var(--ink); border-bottom: 1px solid var(--line-soft); }
+.mobile-nav a:last-child { border-bottom: 0; }
+.mobile-nav.open { display: flex; }
+
+/* ── Секции ────────────────────────────────────────────────────────── */
+.section { padding-block: var(--space); }
+.section--alt { background: var(--paper-alt); }
+
+/* ── Первый экран ──────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  padding-block: clamp(3.5rem, 7vw, 6.5rem);
+  overflow: hidden;
+}
+/* Тёплое свечение в углу */
+.hero::before {
+  content: ""; position: absolute; inset: 0; z-index: 0;
+  background: radial-gradient(60% 70% at 78% 18%,
+              rgba(181,118,78,0.16), transparent 70%);
+  pointer-events: none;
+}
+.hero-grid {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(2rem, 5vw, 5rem); align-items: center;
+}
+.hero-title {
+  font-size: clamp(2.8rem, 7vw, 5rem);
+  line-height: 1.02; letter-spacing: -0.02em;
+  margin: 0 0 1.6rem;
+}
+.hero-lede {
+  font-family: var(--serif);
+  font-size: clamp(1.15rem, 1.4vw, 1.4rem);
+  font-style: italic;
+  line-height: 1.6; color: var(--ink-soft);
+  max-width: 34ch; margin: 0 0 2.4rem;
+}
+.hero-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; }
+
+/* ── Плейсхолдеры фото ─────────────────────────────────────────────── */
+.photo-ph {
+  display: grid; place-items: center; text-align: center;
+  color: var(--ink-faint); font-size: 0.85rem; line-height: 1.5;
+  background:
+    repeating-linear-gradient(45deg,
+      transparent, transparent 11px,
+      rgba(181,118,78,0.05) 11px, rgba(181,118,78,0.05) 22px),
+    var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+.photo-ph small { color: var(--ink-faint); opacity: 0.75; }
+.photo-ph--portrait { aspect-ratio: 4 / 5; }
+.photo-ph--soft { aspect-ratio: 1 / 1; }
+.photo-ph--doc { aspect-ratio: 3 / 4; font-size: 0.78rem; }
+
+.hero-photo, .about-photo { margin: 0; }
+
+/* ── С чем прийти ──────────────────────────────────────────────────── */
+.needs { list-style: none; margin: 0 0 2.2rem; padding: 0; }
+.needs li {
+  position: relative; padding: 0.55rem 0 0.55rem 1.9rem;
+  border-bottom: 1px solid var(--line-soft);
+  color: var(--ink-soft);
+}
+.needs li:last-child { border-bottom: 0; }
+.needs li::before {
+  content: ""; position: absolute; left: 0; top: 1.15rem;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--clay); opacity: 0.8;
+}
+.focus-line {
+  font-family: var(--serif); font-style: italic;
+  font-size: clamp(1.1rem, 1.4vw, 1.3rem);
+  color: var(--ink);
+  border-left: 2px solid var(--clay);
+  padding: 0.4rem 0 0.4rem 1.4rem; margin: 0;
+}
+
+/* ── Проза ─────────────────────────────────────────────────────────── */
+.prose p { margin: 0 0 1.3rem; color: var(--ink-soft); max-width: 64ch; }
+.prose p:last-child { margin-bottom: 0; }
+.prose-note {
+  font-family: var(--serif); font-style: italic;
+  color: var(--ink) !important;
+}
+
+/* ── Обо мне ───────────────────────────────────────────────────────── */
+.about-grid {
+  display: grid; grid-template-columns: 0.8fr 1.2fr;
+  gap: clamp(2rem, 5vw, 4.5rem); align-items: start;
+}
+.about-photo { position: sticky; top: 100px; }
+
+/* ── Образование ───────────────────────────────────────────────────── */
+.edu-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  max-width: 1000px; margin-inline: auto;
+}
+.edu-col h3 {
+  font-size: 0.82rem; font-family: var(--sans); font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--clay-deep);
+  margin: 2rem 0 0.9rem; padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--line);
+}
+.edu-col h3:first-child { margin-top: 0; }
+.edu-col ul { margin: 0; padding-left: 1.1rem; }
+.edu-col li { margin-bottom: 0.7rem; color: var(--ink-soft); }
+
+.diplomas { margin-top: clamp(2.5rem, 5vw, 4rem); }
+.diplomas-cap {
+  text-align: center; font-family: var(--serif); font-style: italic;
+  color: var(--ink-soft); margin: 0 0 1.3rem;
+}
+.diplomas-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+  max-width: 760px; margin-inline: auto;
+}
+
+/* ── Стоимость ─────────────────────────────────────────────────────── */
+.price-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: clamp(1.8rem, 4vw, 3rem);
+  max-width: 540px; margin-inline: auto;
+  box-shadow: 0 24px 60px -40px rgba(44,40,35,0.35);
+}
+.price-list { margin: 0 0 2rem; }
+.price-list > div {
+  display: flex; justify-content: space-between; align-items: baseline;
+  gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--line-soft);
+}
+.price-list > div:first-child { padding-top: 0; }
+.price-list dt { color: var(--ink-faint); font-size: 0.95rem; }
+.price-list dd {
+  margin: 0; text-align: right; font-family: var(--serif);
+  font-size: 1.15rem; color: var(--ink);
+}
+.price-note {
+  display: block; font-family: var(--sans); font-style: normal;
+  font-size: 0.8rem; color: var(--ink-faint); margin-top: 0.2rem;
+}
+
+/* ── FAQ ───────────────────────────────────────────────────────────── */
+.faq { margin-top: 2.5rem; }
+.faq details {
+  border-bottom: 1px solid var(--line);
+}
+.faq details:first-of-type { border-top: 1px solid var(--line); }
+.faq summary {
+  list-style: none; cursor: pointer;
+  font-family: var(--serif); font-size: 1.15rem; color: var(--ink);
+  padding: 1.2rem 2.5rem 1.2rem 0; position: relative;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: "+"; position: absolute; right: 0.2rem; top: 50%;
+  transform: translateY(-50%); font-size: 1.5rem; color: var(--clay);
+  transition: transform .25s ease;
+}
+.faq details[open] summary::after { content: "–"; }
+.faq details p {
+  margin: 0; padding: 0 0 1.4rem; color: var(--ink-soft); max-width: 60ch;
+}
+
+/* ── Контакты ──────────────────────────────────────────────────────── */
+.contacts-lede { color: var(--ink-soft); margin: 0 auto 2.8rem; max-width: 40ch; }
+.contacts-row {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+  margin-bottom: 3rem;
+}
+.contact-link {
+  display: flex; flex-direction: column; gap: 0.3rem;
+  padding: 1.5rem; text-align: center;
+  background: var(--card); border: 1px solid var(--line);
+  border-radius: var(--radius); color: var(--ink);
+  transition: border-color .25s ease, transform .25s ease, box-shadow .25s ease;
+}
+.contact-link:hover {
+  text-decoration: none; border-color: var(--clay); transform: translateY(-3px);
+  box-shadow: 0 18px 40px -30px rgba(44,40,35,0.45);
+}
+.contact-kind { font-family: var(--serif); font-size: 1.2rem; }
+.contact-hint { font-size: 0.85rem; color: var(--ink-faint); }
+
+.read-more { text-align: center; padding-top: 2rem; border-top: 1px solid var(--line-soft); }
+.read-more-cap {
+  font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ink-faint); margin: 0 0 1rem;
+}
+.read-more-links { display: flex; flex-wrap: wrap; gap: 0.6rem 2rem; justify-content: center; }
+
+/* ── Подвал ────────────────────────────────────────────────────────── */
+.site-footer {
+  background: var(--ink); color: var(--paper);
+  padding-block: 3rem; text-align: center;
+}
+.footer-name { font-family: var(--serif); font-size: 1.05rem; margin: 0 0 1rem; opacity: 0.95; }
+.disclaimer {
+  font-size: 0.82rem; line-height: 1.6;
+  color: color-mix(in srgb, var(--paper) 60%, transparent);
+  max-width: 56ch; margin: 0 auto;
+}
+
+/* ── Появление при скролле ─────────────────────────────────────────── */
+.js [data-reveal] {
+  opacity: 0; transform: translateY(18px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.js [data-reveal].is-visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] { opacity: 1; transform: none; transition: none; }
+}
+
+/* ── Адаптив ───────────────────────────────────────────────────────── */
+@media (max-width: 860px) {
+  .nav, .header-cta { display: none; }
+  .nav-toggle { display: flex; }
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-photo { order: -1; max-width: 360px; }
+  .about-grid { grid-template-columns: 1fr; }
+  .about-photo { position: static; max-width: 420px; }
+  .edu-grid { grid-template-columns: 1fr; }
+  .contacts-row { grid-template-columns: 1fr; }
+  .diplomas-grid { grid-template-columns: repeat(2, 1fr); max-width: 420px; }
+}
+
+@media (max-width: 520px) {
+  .price-list > div { flex-direction: column; gap: 0.2rem; }
+  .price-list dd { text-align: left; }
+}
