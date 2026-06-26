@@ -6,16 +6,15 @@ const toggle = document.querySelector('.nav-toggle');
 const mobileNav = document.getElementById('mobile-nav');
 
 if (toggle && mobileNav) {
-  toggle.addEventListener('click', () => {
-    const open = mobileNav.classList.toggle('open');
+  const setOpen = (open) => {
+    mobileNav.classList.toggle('open', open);
     toggle.setAttribute('aria-expanded', String(open));
-  });
+    toggle.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+  };
+  toggle.addEventListener('click', () => setOpen(!mobileNav.classList.contains('open')));
   // Закрываем меню после перехода по ссылке
   mobileNav.querySelectorAll('a').forEach((a) =>
-    a.addEventListener('click', () => {
-      mobileNav.classList.remove('open');
-      toggle.setAttribute('aria-expanded', 'false');
-    })
+    a.addEventListener('click', () => setOpen(false))
   );
 }
 

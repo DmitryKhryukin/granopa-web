@@ -196,9 +196,6 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; color: var(--ink); }
 .btn-line { background: transparent; color: var(--ink); border-color: var(--line); }
 .btn-line:hover { border-color: var(--clay); color: var(--clay-deep); }
 
-.btn-quiet { background: transparent; color: var(--ink); padding: 0.55rem 1.1rem; }
-.btn-quiet:hover { color: var(--clay-deep); }
-
 .btn-wide { width: 100%; text-align: center; padding-block: 1rem; }
 
 /* ── Шапка ─────────────────────────────────────────────────────────── */
@@ -268,7 +265,6 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; color: var(--ink); }
 }
 .mobile-nav a { padding: 0.8rem 0; color: var(--ink); border-bottom: 1px solid var(--line-soft); }
 .mobile-nav a:last-child { border-bottom: 0; }
-.mobile-nav.open { display: flex; }
 /* Акцентная кнопка «Связаться» в мобильном меню */
 .mobile-nav .mobile-cta {
   margin-top: 1rem; text-align: center;
@@ -321,24 +317,6 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; color: var(--ink); }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; }
 /* Обе кнопки равной ширины — выровнены по более широкой («Написать в Телеграм») */
 .hero-actions .btn { min-width: 14.5rem; text-align: center; }
-
-/* ── Плейсхолдеры фото ─────────────────────────────────────────────── */
-.photo-ph {
-  display: grid; place-items: center; text-align: center;
-  color: var(--ink-faint); font-size: 0.85rem; line-height: 1.5;
-  background:
-    repeating-linear-gradient(45deg,
-      transparent, transparent 11px,
-      rgba(181,118,78,0.05) 11px, rgba(181,118,78,0.05) 22px),
-    var(--card);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 1.5rem;
-}
-.photo-ph small { color: var(--ink-faint); opacity: 0.75; }
-.photo-ph--portrait { aspect-ratio: 4 / 5; }
-.photo-ph--soft { aspect-ratio: 1 / 1; }
-.photo-ph--doc { aspect-ratio: 3 / 4; font-size: 0.78rem; }
 
 .hero-photo, .about-photo { margin: 0; }
 
@@ -563,6 +541,9 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; color: var(--ink); }
 @media (max-width: 860px) {
   .nav, .header-cta { display: none; }
   .nav-toggle { display: flex; }
+  /* Раскрытое мобильное меню — только в этом брейкпоинте: если открыть его и
+     повернуть телефон в ландшафт (>860px), оно не «залипнет» на десктопе. */
+  .mobile-nav.open { display: flex; }
   .hero-grid { grid-template-columns: 1fr; }
   .hero-photo { order: -1; max-width: 360px; margin-inline: auto; }
   .about-grid { grid-template-columns: 1fr; }
