@@ -35,6 +35,16 @@ def inline_asset(match):
 
 html = re.sub(r'src="(assets/[^"]+)"', inline_asset, html)
 
+# Вшиваем шрифты (url(...) в @font-face) — иначе одиночный файл потеряет шрифты
+def inline_font(match):
+    path = here / match.group(1)
+    if not path.exists():
+        return match.group(0)
+    data = base64.b64encode(path.read_bytes()).decode("ascii")
+    return f"url('data:font/woff2;base64,{data}')"
+
+html = re.sub(r"url\('(assets/fonts/[^']+\.woff2)'\)", inline_font, html)
+
 out = here / "таисия-сайт.html"
 out.write_text(html, encoding="utf-8")
 print(f"Готово: {out.name}  ({out.stat().st_size // 1024} КБ)")

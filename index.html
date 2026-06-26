@@ -27,11 +27,10 @@
 
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23b5764e'/%3E%3Ccircle cx='50' cy='50' r='43' fill='none' stroke='%23f5efe6' stroke-opacity='0.4' stroke-width='1.5'/%3E%3Ctext x='50' y='70' font-family='Georgia,serif' font-size='60' fill='%23f5efe6' text-anchor='middle'%3E%D0%A2%3C/text%3E%3C/svg%3E" />
 
-  <!-- Шрифты с поддержкой кириллицы. Для продакшна на Яндексе лучше самохостить
-       (см. README → «Шрифты»), чтобы убрать внешний запрос. -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <!-- Шрифты самохостятся из assets/fonts/ (объявлены в styles.css) — никаких
+       внешних запросов к Google. Предзагружаем два начертания первого экрана. -->
+  <link rel="preload" href="assets/fonts/lora-400-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/manrope-400-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
 
   <link rel="stylesheet" href="styles.css" />
 

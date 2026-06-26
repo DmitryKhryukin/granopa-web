@@ -88,16 +88,21 @@ python3 build-single.py
 
 ## ⚙️ Шрифты
 
-Сейчас Lora + Manrope грузятся с Google Fonts — для быстрого старта. Перед
-публикацией их стоит **самохостить**, чтобы убрать внешний запрос и не зависеть
-от доступности Google:
+Lora + Manrope **самохостятся** из `assets/fonts/` — внешних запросов к Google
+нет (быстрее, приватнее, не зависит от доступности Google). Объявлены через
+`@font-face` в начале `styles.css`; два начертания первого экрана предзагружаются
+(`<link rel="preload">` в `index.html`). Хранятся только используемые начертания,
+подмножества cyrillic + latin.
 
 <details>
-<summary>Как самохостить шрифты</summary>
+<summary>Перегенерировать шрифты</summary>
 
-1. Скачать woff2 (например через [google-webfonts-helper](https://gwfh.mranftl.com)).
-2. Положить в `assets/fonts/`.
-3. Добавить `@font-face` в `styles.css`, убрать `<link>` на Google Fonts из `index.html`.
+```sh
+python3 fetch-fonts.py     # качает woff2 в assets/fonts/ и печатает @font-face
+```
+
+Если менялся набор начертаний — обнови ещё и правила `font-family=…` в URL внутри
+скрипта и блок `@font-face` в `styles.css` его выводом.
 
 </details>
 
