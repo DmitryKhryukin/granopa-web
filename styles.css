@@ -253,10 +253,17 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; color: var(--ink); }
   width: 42px; height: 42px; padding: 10px; margin-left: auto;
   background: none; border: 1px solid var(--line); border-radius: var(--radius);
 }
-.nav-toggle span { height: 1.5px; background: var(--ink); transition: .25s; }
-.nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+/* width/height заданы явно: на старом WebKit (iPhone SE) пустые span без
+   ширины не растягиваются через align-items: stretch и схлопываются в ноль —
+   видна рамка кнопки, но не полоски. */
+.nav-toggle span {
+  display: block; flex: 0 0 auto;
+  width: 100%; height: 2px; border-radius: 1px;
+  background: var(--ink); transition: .25s;
+}
+.nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
-.nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 .mobile-nav {
   display: none; flex-direction: column;
@@ -559,4 +566,15 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; color: var(--ink); }
   /* На узких мобильных имя может переноситься на две строки */
   .hero-title { white-space: normal; }
   .hero-actions .btn { flex: 1 1 100%; min-width: 0; }
+  /* «Меня также можно читать» — в колонку с выравниванием по левому краю:
+     при центрировании переносящиеся ссылки разной ширины не выстраивались
+     по иконкам (Телеграм слева, Дзен с отступом). */
+  .read-more-links {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    width: fit-content;
+    max-width: 100%;
+    margin-inline: auto;
+  }
 }
