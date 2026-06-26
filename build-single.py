@@ -7,6 +7,8 @@
 Запуск:  python3 build-single.py
 Результат:  таисия-сайт.html
 """
+import base64
+import re
 from pathlib import Path
 
 here = Path(__file__).parent
@@ -22,6 +24,16 @@ html = html.replace(
     '<script src="main.js" defer></script>',
     f"<script>\n{js}\n</script>",
 )
+
+# Вшиваем фото из assets/ как data-URI, чтобы файл был полностью самодостаточным
+def inline_asset(match):
+    path = here / match.group(1)
+    if not path.exists():
+        return match.group(0)
+    data = base64.b64encode(path.read_bytes()).decode("ascii")
+    return f'src="data:image/jpeg;base64,{data}"'
+
+html = re.sub(r'src="(assets/[^"]+)"', inline_asset, html)
 
 out = here / "таисия-сайт.html"
 out.write_text(html, encoding="utf-8")
